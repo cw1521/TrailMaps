@@ -1,27 +1,46 @@
 const bodyParser = require("body-parser"); 
-
 const express = require("express");
-const router = require('./routes/routes');
-
-const PORT = process.env.PORT || 3500;
-
+const router = require("./routes/routes");
+const path = require("path")
 
 
 
-const server = express();
 
-server.use(bodyParser.json())
+const PORT = process.env.PORT || 5000;
+
+const WEBSITE_PATH = path.join(__dirname, "website");
 
 
-server.use(bodyParser.urlencoded({ 
+
+
+
+const app = express();
+
+app.use(express.static(WEBSITE_PATH));
+
+
+
+app.use(bodyParser.json())
+
+
+app.use(bodyParser.urlencoded({ 
     extended: true
 })); 
 
-server.use("/api", router);
+
+
+
+app.use("/", (req, res) => {
+    res.sendFile("index.html");
+});
+
+
+
+app.use("/api", router);
 
 
 
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
