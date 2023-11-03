@@ -1,0 +1,17 @@
+<trailquery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../schema/trailquery.xsd">
+    <latitude>20.34</latitude>
+    <longitude>33.5</longitude>
+    <ratings>
+        <rating>2</rating>
+        <rating>3</rating>
+        <rating>4</rating>
+    </ratings>
+    <difficulties>
+        <difficulty>Beginner</difficulty>
+        <difficulty>Intermediate</difficulty>
+    </difficulties>
+    <minLength>4.5</minLength>
+    <maxLength>10.0</maxLength>
+
+</trailquery>

@@ -1,0 +1,8 @@
+{
+    "lat": 20.34,
+    "long": 33.5,
+	"rating": [3, 2, 1],
+	"difficulty": ["beginner"]
+    "minLength": 4.5,
+	"maxLength": 10.0,
+}

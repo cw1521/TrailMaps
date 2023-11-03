@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>TrailMaps</title>
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+        <link rel="stylesheet" href="./styles.css">
+        <script src="./script.js"></script>
+    </head>
+
+
+    <body>
+
+        <div class="header flex-container">
+            <b><i>TrailMaps</i></b>
+        </div>
+
+        
+        <div class="content grid-container">
+            <div class="search-container">
+                <form>
+                    <label for="newLoc">Enter a location: </label>
+                    <input id="newLoc" name="newLoc" type="text">
+                    <br><br>
+                    <label for="currentLoc">Use Current Location: </label>
+                    <input type="checkbox" id="currentLoc" name="currentLoc" value="True">
+                    <br><br>
+                    <label for="difficulty">Difficulty: </label>
+                    <input type="checkbox" id="begDiff" name="begDiff" value="Beginner">
+                    <label for="beginner">Beginner</label>
+                    <input type="checkbox" id="intDiff" name="intDiff" value="Intermediate">
+                    <label for="intermediate">Intermediate</label>
+                    <input type="checkbox" id="hardDiff" name="hardDiff" value="Hard">
+                    <label for="hard">Hard</label>
+                    <br><br>
+
+                    <label for="rating">Rating: </label>
+                    <input type="checkbox" id="rating1" name="rating1" value="1">
+                    <label for="">1</label>
+                    <input type="checkbox" id="rating2" name="rating2" value="2">
+                    <label for="">2</label>
+                    <input type="checkbox" id="rating3" name="rating3" value="3">
+                    <label for="">3</label>
+                    <input type="checkbox" id="rating4" name="rating4" value="4">
+                    <label for="">4</label>
+                    <input type="checkbox" id="rating5" name="rating5" value="5">
+                    <label for="">5</label>
+                    <br><br>
+
+                    <label for="minLength">Minimum Trail Length: </label>
+                    <input id="minLength" name="minLength" type="number" width="3" min="0">
+                    <br><br>
+                    <label for="maxLength">Maximum Trail Length: </label>
+                    <input id="maxLength" name="maxLength" type="number" width="3" min="0">
+                    <br><br>
+                    <button type="button" onclick="getTrails()">Get Trails</button>
+                    <br><br>
+                </form>
+            </div>
+            <div class="map-container">          
+                <div id="map"><img src="./assets/map.png" alt="Map with bike trails"></div>
+                <div id="loc" class="flex-container" >
+                    <div id="address" class="text-container"></div>
+                    <div id="coords" class="text-container"></div>    
+                    <br><br>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer flex-container">
+            CSC 504 - Web Technologies and Knowledge Modeling <br>
+            University of South Alabama <br>
+            Fall 2023
+        </div>
+
+    </body>
+
+
+
+</html>
