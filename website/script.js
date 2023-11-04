@@ -86,13 +86,13 @@ function setMap(latitude, longitude, callback=null) {
             credentials: key,
             center: new Microsoft.Maps.Location(latitude, longitude),
             mapTypeId: Microsoft.Maps.MapTypeId.road,
-            zoom: 10
+            showLocateMeButton: false,
+            zoom: 8
         });    
         infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
             visible: false
         });
 
-        //Assign the infobox to a map instance.
         infobox.setMap(map);
 
 
@@ -165,6 +165,9 @@ class TrailModel {
         return temp;
     }
 }
+
+
+
 
 class KeyModel {
     constructor(id, name, key) {

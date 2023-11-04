@@ -6,8 +6,8 @@
         <meta charset="utf-8" />
         <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
         <link rel="stylesheet" href="./styles.css">
-        <script src="./script.js"></script>
-        <script type='text/javascript'
+        <script type="text/javascript" src="./script.js"></script>
+        <script type="text/javascript"
             src="http://www.bing.com/api/maps/mapcontrol?callback=loadMap" async defer></script>
     </head>
 
@@ -20,9 +20,9 @@
 
         
         <div class="content grid-container">
+            <div class="center-text"><h1>Search for Trails</h1></div>
             <div class="search-container">
                 <form>
-                    <h1>Search for Trails</h1>
                     <label for="street">Street: </label>
                     <input id="street" name="street" type="text">
                     <br><br>
@@ -36,7 +36,9 @@
                     <label for="country">Country: </label>
                     <input id="country" name="country" type="text">
                     <br><br>
-
+                    <label for="currentLoc">Use Current Location: </label>
+                    <input type="checkbox" id="currentLoc" name="currentLoc" value="true">
+                    <br><br>
 
                     <label for="difficulty">Difficulty: </label>
                     <input type="checkbox" id="begDiff" name="begDiff" value="Beginner">

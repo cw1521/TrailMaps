@@ -24,9 +24,11 @@ body {
     align-items: center;
     padding: 1vh 1vh 1vh 1vh;
   }
-
+.center-text {
+    text-align: center;
+}
 .content {
-    height: 100vh;
+    height: 130vh;
     background-image: linear-gradient(to bottom right, rgb(23, 45, 45, 1.0), rgb(23, 45, 45, 0.7));
 }
 
@@ -53,11 +55,11 @@ body {
 }
 
 #minLength, #maxLength {
-    width: 10%
+    width: 7%
 }
 
 #city, #country {
-    width: 23%;
+    width: 15%;
 }
 
 #state {
@@ -69,5 +71,5 @@ body {
 }
 
 #street {
-    width: 50%;
+    width: 45%;
 }
