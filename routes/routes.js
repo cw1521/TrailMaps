@@ -1,5 +1,5 @@
-const trailController = require("../controllers/trailController");
-const keyController = require("../controllers/keyController");
+const TrailController = require("../controllers/TrailController");
+const KeyController = require("../controllers/KeyController");
 
 
 
@@ -29,13 +29,13 @@ router.route("")
 
 
 router.route("/trails")
-.get(trailController.getAll)
+.get(TrailController.getAll)
 .post(notSupportedHandler)
 .put(notSupportedHandler)
 .delete(notSupportedHandler);
 
 router.route("/apikey/:key")
-.get(keyController.get)
+.get(KeyController.get)
 .post(notSupportedHandler)
 .put(notSupportedHandler)
 .delete(notSupportedHandler);
