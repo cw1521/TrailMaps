@@ -1,4 +1,4 @@
-
+var map, infoBox;
 
 function log(text) {
     console.log(text);
@@ -12,7 +12,7 @@ function fetchPage(path, callback) {
     xhr.onload = () => {
         let response = xhr.response;
         // log(response);
-        callback(response);       
+        return callback(response);       
     };
 }
 
@@ -20,6 +20,7 @@ function fetchPage(path, callback) {
 
 
 function testTrails() {
+    setMap(30.694551, -88.187773);
     fetchPage("/trails", parseTrailsXML);
 }
 
@@ -28,13 +29,18 @@ function parseTrailsXML(xmlString) {
     parser = new DOMParser();
     xmlDoc = parser.parseFromString(xmlString,"text/xml");
     xmlDoc = xmlDoc.getElementsByTagName("trail");
+    let models = [];
+    for (let trailXML of xmlDoc) {
+        let model = new TrailModel(trailXML);
+        // log(model);
+        createPushPin(model);
 
-   for (let trailXML of xmlDoc) {
-    model = new TrailModel(trailXML)
-    log(model);
-   }
-
+    }
+    
 }
+
+
+
 
 
 
@@ -44,12 +50,27 @@ function parseTrailsXML(xmlString) {
 
 
 
-function createPushPin() {
-    
+function createPushPin(model) {
+    let loc = new Microsoft.Maps.Location(model.latitude, model.longitude);
+    let pin = new Microsoft.Maps.Pushpin(loc);
+    pin.metadata = {
+        title: model.name,
+        description: model.toString()
+    }
+    Microsoft.Maps.Events.addHandler(pin, 'click', pushpinClicked);
+    map.entities.push(pin);
 }
 
-
-
+function pushpinClicked(e) {
+    if (e.target.metadata) {
+        infobox.setOptions({
+            location: e.target.getLocation(),
+            title: e.target.metadata.title,
+            description: e.target.metadata.description,
+            visible: true
+        });
+    }
+}
 
 
 function setMap(latitude, longitude, callback=null) {
@@ -61,14 +82,21 @@ function setMap(latitude, longitude, callback=null) {
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
         key = xmlDoc.getElementsByTagName("key")[0].childNodes[0].nodeValue;
-        let map = new Microsoft.Maps.Map(document.getElementById("map"), {
+        map = new Microsoft.Maps.Map(document.getElementById("map"), {
             credentials: key,
             center: new Microsoft.Maps.Location(latitude, longitude),
             mapTypeId: Microsoft.Maps.MapTypeId.road,
             zoom: 10
         });    
+        infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
+            visible: false
+        });
 
-        if (callback !== null) callback(map)
+        //Assign the infobox to a map instance.
+        infobox.setMap(map);
+
+
+        if (callback !== null) callback(map);
 
     };
 }
@@ -96,8 +124,10 @@ class TrailModel {
     url = "url";
     rating = "rating";
     description = "description";
+    directions = "directions";
     length = "length";
     features = "features";
+
 
     constructor(trailXML) {
         this.xmlDoc = trailXML;
@@ -109,13 +139,14 @@ class TrailModel {
         this.url = this.getValue(this.url);
         this.rating = this.getValue(this.rating);
         this.description = this.getValue(this.description);
+        this.directions = this.getValue(this.directions);
         this.length = this.getValue(this.length);
         this.features = this.getValue(this.features);
     }
 
     getValue(tag) {
         let temp = this.xmlDoc.getElementsByTagName(tag)[0].childNodes[0];
-        // log(temp)
+        // log(temp);
         if (temp) {
             let value = temp.nodeValue;
             // log(value);
@@ -126,13 +157,19 @@ class TrailModel {
         }
     }
 
-
+    toString() {
+        let temp = `${this.difficulty}<br>Length: ${this.length}<br>
+            Rating: ${this.rating}<br>${this.description}<br>Directions: ${this.directions}<br>
+            <a href="${this.url}">${this.url}</a><br>`;
+        temp = temp.replace("\\n", "<br>").replace("\\n", "<br>");
+        return temp;
+    }
 }
 
 class KeyModel {
-    constructor(id, name, api_key) {
+    constructor(id, name, key) {
         this.id = id;
         this.name = name;
-        this.api_key = api_key;
+        this.key = key;
     }
 }
