@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<trailmaps xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../schema/trailmaps.xsd">
+
+    <trail>
+        <id>286997</id>
+        <name>USA</name>
+        <lat>30.69839</lat>
+        <long>-88.17975</long>
+        <difficulty>Beginner</difficulty>
+        <url>https://www.singletracks.com/bike-trails/usa/</url>
+        <rating>4</rating>
+        
+        <description>Singletrack, roots, some sand, most hard pack, mostly flat, bridges over water.</description>
+        <directions>Behind University of Southern Alabama</directions>
+
+        <length>12.0</length>
+        
+        <features></features>
+        
+    </trail>
+
+    <trail>
+        <id>288863</id>
+        <name>Cottage Hill Park</name>
+        <lat>30.65446</lat>
+        <long>-88.19041</long>
+        <difficulty>Beginner</difficulty>
+        <url>https://www.singletracks.com/bike-trails/cottage-hill-park/</url>
+        <rating>1.67</rating>
+        <description>The trails are very limited, and excellent for families. One set of trails shares with a frisbee golf course. Excellent for the beginner just wanting to strech his/her legs for the first time.</description>
+        <directions>Take I-65 to Airport Blvd. West. Go approx. 6 miles to Hillcrest Road, turn left. Go approx. 3 mils and cross Grelot Road. The park is on the left just after the intersection.</directions>
+        <length>3.0</length>
+        <features></features>
+    </trail>
+
+
+
+
+    <trail>
+        <id>288860</id>
+        <name>Chickasabogue Park</name>
+        <lat>30.77968</lat>
+        <long>-88.09737</long>
+        <difficulty>Intermediate</difficulty>
+        <url>https://www.singletracks.com/bike-trails/chickasabogue-park/</url>
+        <rating>3.24</rating>
+        <description>•currently closed for renovations Jan 2022-UTC•\n\nThe best place to ride within a hundred miles. Short steep climbs, with the occaisional sand section. It holds up well to rain. There are some new sections which were just recently cut, they are still a bit spongy, but should firm up in time. Expect an hour and a half unless you are some kind of NORBA animal. I heard that some guy on a Rocky Mountain full suspension bike did the whole loop in One hour and ten minutes. All I gotta say is wow!</description>
+        <directions>I-65 to three-mile exit, follow signs to Chickasabogue Park. Have one dollar ready and check direction of ride at park office.</directions>
+        <length>14</length>
+        <features></features>
+    </trail>
+
+
+    <!-- <trail>
+        <id></id>
+        <name></name>
+        <lat></lat>
+        <long></long>
+        <difficulty></difficulty>
+        <url></url>
+        <rating></rating>
+        <description></description>
+        <directions></directions>
+        <length></length>
+        <features></features>
+    </trail>
+
+
+    <trail>
+        <id></id>
+        <name></name>
+        <lat></lat>
+        <long></long>
+        <difficulty></difficulty>
+        <url></url>
+        <rating></rating>
+        <description></description>
+        <directions></directions>
+        <length></length>
+        <features></features>
+    </trail> -->
+
+
+</trailmaps>

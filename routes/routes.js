@@ -1,11 +1,7 @@
 const TrailController = require("../controllers/TrailController");
 const KeyController = require("../controllers/KeyController");
-
-
-
-
 const express = require("express");
-let router = express.Router();
+
 
 
 function notSupportedHandler(req, res, next) {    
@@ -14,18 +10,23 @@ function notSupportedHandler(req, res, next) {
         message: "Not Supported."
     });
 }
-
-
-function indexRoute(req, res) {
+function indexRouteHandler(req, res) {
     res.render("index.html");
 };
 
 
+
+
+
+let router = express.Router();
+
+
 router.route("")
-.get(indexRoute)
+.get(indexRouteHandler)
 .post(notSupportedHandler)
 .put(notSupportedHandler)
 .delete(notSupportedHandler);
+
 
 
 router.route("/trails")
@@ -34,10 +35,18 @@ router.route("/trails")
 .put(notSupportedHandler)
 .delete(notSupportedHandler);
 
+
+
 router.route("/apikey/:key")
 .get(KeyController.get)
 .post(notSupportedHandler)
 .put(notSupportedHandler)
 .delete(notSupportedHandler);
+
+
+
+
+
+
 
 module.exports = router;
