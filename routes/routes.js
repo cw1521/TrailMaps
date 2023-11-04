@@ -1,5 +1,5 @@
-const trailController = require("../controller/trailController");
-const keyController = require("../controller/keyController");
+const trailController = require("../controllers/trailController");
+const keyController = require("../controllers/keyController");
 
 
 

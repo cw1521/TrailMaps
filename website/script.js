@@ -27,7 +27,7 @@ function getMap()
     xhr.send();
     xhr.onload = () => {
         let map_api_key = JSON.parse(xhr.response);
-        console.log(map_api_key)
+        // console.log(map_api_key)
         let map = new Microsoft.Maps.Map(document.getElementById("map"), {
             credentials: map_api_key["api_key"],
             center: new Microsoft.Maps.Location(30.694551, -88.187773),
