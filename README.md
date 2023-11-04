@@ -1,4 +1,4 @@
-# Installation <br>
+# Installation
 **Download Node**<br>
 **Clone Repo**<br>
 **Type `npm install` inside the folder**<br>
@@ -8,7 +8,7 @@
 **API Keys are expected to be stored in api_keys folder in root TrailMaps directory.**<br><br>
 **Obtain Bing Maps api_key and store in TrailMaps/api_keys/map_api_key.json**<br>
 **Example:**<br>
-map_api_key.json<br>
+map_api_key.json
 ```
 {
     "id": "0",
