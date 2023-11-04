@@ -1,7 +1,0 @@
-Your Location
-University of South Alabama, 310 Greek Dr, Mobile, AL 36608, United States
-
-
-Your Latitude and Longitude
-30.694551
--88.187773

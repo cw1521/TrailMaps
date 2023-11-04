@@ -19,6 +19,18 @@ function getTrails() {
 
 
 
+
+
+
+
+
+function createPushPin() {
+    
+}
+
+
+
+
   
 function getMap()
 {    
