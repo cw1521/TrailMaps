@@ -46,3 +46,12 @@ body {
     padding-top: 2vh;
 }
 
+#map {
+    position: relative;
+    width: 600px;
+    height: 400px;
+}
+
+#minLength, #maxLength {
+    width: 10%
+}

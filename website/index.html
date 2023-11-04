@@ -3,9 +3,12 @@
 
     <head>
         <title>TrailMaps</title>
+        <meta charset="utf-8" />
         <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
         <link rel="stylesheet" href="./styles.css">
         <script src="./script.js"></script>
+        <script type='text/javascript'
+            src="http://www.bing.com/api/maps/mapcontrol?callback=getMap" async defer></script>
     </head>
 
 
@@ -47,18 +50,19 @@
                     <label for="rating5">5</label>
                     <br><br>
 
-                    <label for="minLength">Minimum Trail Length: </label>
-                    <input id="minLength" name="minLength" type="number" width="3" min="0">
-                    <br><br>
-                    <label for="maxLength">Maximum Trail Length: </label>
-                    <input id="maxLength" name="maxLength" type="number" width="3" min="0">
+                    <label for="minLength">Min Length: </label>
+                    <input id="minLength" name="minLength" type="number" min="0">
+                    <!-- <br><br> -->
+                    <label for="maxLength">Max Length: </label>
+                    <input id="maxLength" name="maxLength" type="number" min="0">
                     <br><br>
                     <button type="button" onclick="getTrails()">Get Trails</button>
                     <br><br>
                 </form>
             </div>
             <div class="map-container">          
-                <div id="map"><img src="./assets/map.png" alt="Map with bike trails"></div>
+                <div id="map"></div>
+                <!-- <img src="./assets/map.png" alt="Map with bike trails"> -->
                 <div id="loc" class="flex-container" >
                     <div id="address" class="text-container"></div>
                     <div id="coords" class="text-container"></div>    
@@ -74,6 +78,9 @@
             Fall 2023
         </div>
 
+
+
+        
     </body>
 
 
