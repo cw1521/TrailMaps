@@ -2,9 +2,6 @@ const KeyModel = require("../models/KeyModel");
 const path = require("path");
 const fs = require("fs");
 
-// const MAP_API_KEY_PATH = path.join(
-//     __dirname,"../", "api_keys", "map_api_key.json");
-
 const MAP_API_KEY_PATH = path.join(
     __dirname,"../", "api_keys", "mapkey.xml");
 

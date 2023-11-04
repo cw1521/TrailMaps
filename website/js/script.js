@@ -24,13 +24,19 @@ function getTrails() {
 
 
 
-
+function searchTrails() {
+    
+}
 
 
 
 function createPushPin() {
     
 }
+
+
+
+
 
 function setMap(latitude, longitude, callback=null) {
     let xhr = new XMLHttpRequest();
@@ -63,3 +69,6 @@ function setMap(latitude, longitude, callback=null) {
 function loadMap() {
     setMap(30.694551, -88.187773);
 }
+
+
+

@@ -22,12 +22,22 @@
         <div class="content grid-container">
             <div class="search-container">
                 <form>
-                    <label for="newLoc">Enter a location: </label>
-                    <input id="newLoc" name="newLoc" type="text">
+                    <h1>Search for Trails</h1>
+                    <label for="street">Street: </label>
+                    <input id="street" name="street" type="text">
                     <br><br>
+                    <label for="cityState">City, State: </label>
+                    <input id="cityState" name="cityState" type="text">
+
+                    <label for="zip">Zipcode: </label>
+                    <input id="zip" name="zip" type="text">
+                    <br><br>
+
                     <label for="currentLoc">Use Current Location: </label>
                     <input type="checkbox" id="currentLoc" name="currentLoc" value="true">
                     <br><br>
+
+
                     <label for="difficulty">Difficulty: </label>
                     <input type="checkbox" id="begDiff" name="begDiff" value="Beginner">
                     <label for="begDiff">Beginner</label>
@@ -56,7 +66,7 @@
                     <label for="maxLength">Max Length: </label>
                     <input id="maxLength" name="maxLength" type="number" min="0">
                     <br><br>
-                    <button type="button" onclick="getTrails()">Get Trails</button>
+                    <button type="button" onclick="searchTrails()">Search</button>
                     <br><br>
                 </form>
             </div>

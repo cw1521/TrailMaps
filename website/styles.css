@@ -55,3 +55,15 @@ body {
 #minLength, #maxLength {
     width: 10%
 }
+
+#cityState {
+    width: 25%;
+}
+
+#zip {
+    width: 15%;
+}
+
+#street {
+    width: 65%;
+}
