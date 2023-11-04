@@ -56,14 +56,18 @@ body {
     width: 10%
 }
 
-#cityState {
-    width: 25%;
+#city, #country {
+    width: 23%;
+}
+
+#state {
+    width: 10%;
 }
 
 #zip {
-    width: 15%;
+    width: 10%;
 }
 
 #street {
-    width: 65%;
+    width: 50%;
 }
