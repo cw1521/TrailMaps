@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<trailmaps xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../schema/trailmaps.xsd">
+
+    <trail>
+        <id>286997</id>
+        <name>USA</name>
+        <lat>30.69839</lat>
+        <long>-88.17975</long>
+        <difficulty>Beginner</difficulty>
+        <url>https://www.singletracks.com/bike-trails/usa/</url>
+        <rating>4</rating>
+        
+        <description>Singletrack, roots, some sand, most hard pack, mostly flat, bridges over water.</description>
+        <directions>Behind University of Southern Alabama</directions>
+
+        <length>12.0</length>
+        
+        <features></features>
+        
+    </trail>
+
+    <trail>
+        <id>286997</id>
+        <name>USA</name>
+        <lat>30.69839</lat>
+        <long>-88.17975</long>
+        <difficulty>Beginner</difficulty>
+        <url>https://www.singletracks.com/bike-trails/usa/</url>
+        <rating>4</rating>
+        
+        <description>Singletrack, roots, some sand, most hard pack, mostly flat, bridges over water.</description>
+        <directions>Behind University of Southern Alabama</directions>
+
+        <length>12.0</length>
+        
+        <features></features>
+        
+    </trail>
+
+
+</trailmaps>

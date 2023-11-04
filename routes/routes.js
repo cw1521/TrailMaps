@@ -16,6 +16,17 @@ function notSupportedHandler(req, res, next) {
 }
 
 
+function indexRoute(req, res) {
+    res.render("index.html");
+};
+
+
+router.route("")
+.get(indexRoute)
+.post(notSupportedHandler)
+.put(notSupportedHandler)
+.delete(notSupportedHandler);
+
 
 router.route("/trails")
 .get(trailController.getAll)

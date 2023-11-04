@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
+        
+
+
+
+    <xs:element name="trailquery">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="latitude" type="latitudeType"></xs:element>
+                <xs:element name="longitude" type="longitudeType"></xs:element>
+                <xs:element name="ratings" type="ratingSeq"></xs:element>
+                <xs:element name="difficulties" type="difficultySeq"></xs:element>
+                <xs:element name="minLength" type="lengthType"></xs:element>
+                <xs:element name="maxLength" type="lengthType"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+
+
+
+
+    <xs:complexType name="ratingSeq">
+        <xs:sequence minOccurs="0" maxOccurs="5">
+            <xs:element name="rating" type="ratingType"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+
+    <xs:simpleType name="ratingType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="5"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+
+
+    <xs:simpleType name="lengthType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="longitudeType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="-180.0"/>
+            <xs:maxInclusive value="180.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="latitudeType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="-90.0"/>
+            <xs:maxInclusive value="90.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="difficultySeq">
+        <xs:sequence minOccurs="0" maxOccurs="5">
+            <xs:element name="difficulty" type="difficultyType"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:simpleType name="difficultyType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Beginner"/>
+            <xs:enumeration value="Intermediate"/>
+            <xs:enumeration value="Hard"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
