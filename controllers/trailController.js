@@ -1,4 +1,3 @@
-const TrailModel = require("../models/TrailModel");
 const path = require("path");
 const TRAIL_XML_PATH = path.join(__dirname, "../", "xml", "trails.xml");
 const fs = require("fs");

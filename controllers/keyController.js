@@ -1,4 +1,3 @@
-const KeyModel = require("../models/KeyModel");
 const path = require("path");
 const fs = require("fs");
 
