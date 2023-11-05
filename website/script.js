@@ -221,7 +221,8 @@ class KeyModel {
 
 
 class QueryParams {
-    location = null;
+    latitude = null;
+    longitude = null;
     ratings = null;
     difficulties = null;
     minLength = null;
@@ -231,7 +232,6 @@ class QueryParams {
         difficulties,
         minLength,
         maxLength) {
-            this.location = [];
             this.ratings = ratings;
             this.difficulties = difficulties;
             this.minLength = minLength;
