@@ -191,12 +191,6 @@ function pushpinClicked(e) {
 
 
 
-// parser = new DOMParser();
-// xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
-// key = xmlDoc.getElementsByTagName("key")[0].childNodes[0].nodeValue;
-// "/apikey/map"
-
-
 function setApiKey(res) {
     parser = new DOMParser();
     xmlDoc = parser.parseFromString(res, "text/xml");
