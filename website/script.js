@@ -1,10 +1,29 @@
-var map, infoBox, key;
-
+var map, infoBox, key, queryParams;
 
 
 function log(text) {
     console.log(text);
 }
+
+
+
+
+
+
+  
+function LoadMap() {
+    fetchPage("/apikey/map", setApiKey);
+}
+
+function SearchTrails() {
+    setQueryParams();
+}
+
+
+
+
+
+
 
 
 
@@ -15,32 +34,14 @@ function fetchPage(path, callback) {
     xhr.onload = () => {
         let response = xhr.response;
         // log(response);
-        return callback(response);       
+        callback(response);       
     };
 }
 
 
 
 
-function testTrails() {
-    setMap(33.753746, -84.386330);
-    fetchPage("/trails", parseTrailsXML);
-}
 
-
-
-
-function parseTrailsXML(xmlString) {
-    let parser = new DOMParser();
-    xmlDoc = parser.parseFromString(xmlString,"text/xml");
-    xmlDoc = xmlDoc.getElementsByTagName("trail");
-    for (let trailXML of xmlDoc) {
-        let model = new TrailModel(trailXML);
-        // log(model);
-        createPushPin(model);
-
-    }
-}
 
 function pushElemIfChecked(elemId, oArr) {
     let elem = document.getElementById(elemId);
@@ -64,24 +65,103 @@ function getRatingsParams() {
     return ratings;
 }
 
+function setCoordinates(res) {
+    let parser = new DOMParser();
+    let xmlDoc = parser.parseFromString(res, "text/xml");
+    let loc = xmlDoc.getElementsByTagName("Point");
+    // log(loc[0].childNodes[0].childNodes[0].nodeValue)
+    // log(loc[0].childNodes[1].childNodes[0].nodeValue)
+    let lat = loc[0].childNodes[0].childNodes[0].nodeValue
+    let long = loc[0].childNodes[1].childNodes[0].nodeValue;
+    queryParams.latitude = lat;
+    queryParams.longitude = long;
+    // log(queryParams)
+    setMap(queryParams.latitude, queryParams.longitude);
+    search();
+}
+
+function getCoordinates(qStr) {
+    let url = `http://dev.virtualearth.net/REST/v1/Locations${qStr}`;
+    // log(url)
+    fetchPage(url, setCoordinates);
+}
+
+function addComma(field, oStr) {
+    if (oStr != ``) oStr += `, ${field}`;
+    else oStr += `${field}`;
+    return oStr;
+}
+
+function getAddressQueryString() {
+    let fields = ["street", "city", "state", "zip", "country"];
+    let qStr = ``;
+    for (let field of fields) {
+        let value = document.getElementById(field).value;
+        if (value) qStr = addComma(value, qStr);
+    }
+    if (qStr != ``) {
+        qStr = encodeURI(qStr);
+        qStr = `?q=${qStr}&o=xml&key=${key}`;
+    }
+    return qStr;
+}
 
 
-function getQueryParams() {
+function search() {
+    // log(queryParams.getQueryString());
+    fetchPage(`/trails${queryParams.getQueryString()}`, log)
+    // fetchPage(`/trails${queryParams.getQueryString()}`, parseTrailsXML);
+}
+
+
+function setLocationParams() {
+    if (!document.getElementById("currentLoc").checked) {
+        let qStr = getAddressQueryString();
+        getCoordinates(qStr);
+    }
+    else {
+        useCurrentLocation(search);
+    }    
+}
+
+
+
+
+
+function setQueryParams() {
     let diffParams = getDifficultiesParams();
     let ratingParams = getRatingsParams();
     let minLength = document.getElementById("minLength").value;
     let maxLength = document.getElementById("maxLength").value;
-    let queryParams = new QueryParams(ratingParams, diffParams, minLength, maxLength);
-    return queryParams;
+    queryParams = new QueryParams(ratingParams, diffParams, minLength, maxLength);
+    setLocationParams();
 }
 
 
 
-function searchTrails() {
-    let searchParams = getQueryParams();
-    log(searchParams.getQueryString());
+
+
+
+
+function testTrails() {
+    setMap(33.753746, -84.386330);
+    fetchPage("/trails", parseTrailsXML);
 }
 
+
+
+
+function parseTrailsXML(xmlString) {
+    let parser = new DOMParser();
+    xmlDoc = parser.parseFromString(xmlString,"text/xml");
+    xmlDoc = xmlDoc.getElementsByTagName("trail");
+    for (let trailXML of xmlDoc) {
+        let model = new TrailModel(trailXML);
+        // log(model);
+        createPushPin(model);
+
+    }
+}
 
 
 function createPushPin(model) {
@@ -109,17 +189,19 @@ function pushpinClicked(e) {
     }
 }
 
-function setApiKey(callback=null) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/apikey/map");
-    xhr.send();
-    xhr.onload = () => {
-        path = "/apikey/key"
-        parser = new DOMParser();
-        xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
-        key = xmlDoc.getElementsByTagName("key")[0].childNodes[0].nodeValue;
-        if (callback) callback();
-    }
+
+
+// parser = new DOMParser();
+// xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+// key = xmlDoc.getElementsByTagName("key")[0].childNodes[0].nodeValue;
+// "/apikey/map"
+
+
+function setApiKey(res) {
+    parser = new DOMParser();
+    xmlDoc = parser.parseFromString(res, "text/xml");
+    key = xmlDoc.getElementsByTagName("key")[0].childNodes[0].nodeValue;
+    initMap();    
 }
 
 
@@ -138,23 +220,22 @@ function setMap(latitude, longitude) {
 }
 
 
-
-function initMap() {
-    setMap(33.753746, -84.386330);
+function useCurrentLocation(callback) {
     navigator.geolocation.getCurrentPosition(function (position) {
-        position
         var loc = new Microsoft.Maps.Location(
             position.coords.latitude,
             position.coords.longitude);
         setMap(loc.latitude, loc.longitude);
+        queryParams.latitude = loc.latitude;
+        queryParams.longitude = loc.longitude;
+        search();
+        callback();
     });
 }
 
 
-
-  
-function loadMap() {
-    setApiKey(initMap);
+function initMap() {
+    setMap(33.753746, -84.386330);
 }
 
 
@@ -192,10 +273,8 @@ class TrailModel {
 
     getValue(tag) {
         let temp = this.xmlDoc.getElementsByTagName(tag)[0].childNodes[0];
-        // log(temp);
         if (temp != null) {
             let value = temp.nodeValue;
-            // log(value);
             return value;
         }
     }
@@ -229,6 +308,7 @@ class QueryParams {
     difficulties = null;
     minLength = null;
     maxLength = null;
+
     constructor(
         ratings,
         difficulties,
@@ -288,7 +368,7 @@ class QueryParams {
         if (this.getRatingsString()) temp = this.addAnd(this.getRatingsString(), temp);
         if (this.getDifficultiesString()) temp = this.addAnd(this.getDifficultiesString(), temp);
         if (this.getLengthString()) temp = this.addAnd(this.getLengthString(), temp);
-        if (temp !== ``) return `?${temp}`;
+        if (temp != ``) return `?${temp}`;
         else return temp;
     }
 }
