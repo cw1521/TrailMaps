@@ -286,6 +286,6 @@ class QueryParams {
         if (this.getRatingsString()) temp = this.addAnd(this.getRatingsString(), temp);
         if (this.getDifficultiesString()) temp = this.addAnd(this.getDifficultiesString(), temp);
         if (this.getLengthString()) temp = this.addAnd(this.getLengthString(), temp);
-        return temp;
+        return `?${temp}`;
     }
 }
