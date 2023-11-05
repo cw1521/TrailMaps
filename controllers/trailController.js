@@ -15,7 +15,6 @@ TrailController.get = (req, res, next) => {
     if (req.query) {
         // console.log(req.query);
         this.searchController = new SearchController(req.query, res);
-        // this.searchController.searchTrails(query);
     }
     else {
         res.status(200);

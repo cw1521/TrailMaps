@@ -10,81 +10,82 @@ function log(oStr) {
     console.log(oStr);
 }
 
-// function filterMin(trails, query) {
-//     if (query["min"]) {
-//         let temp = trails.filter(trail => {
-//             return parseFloat(query["min"]) < parseFloat(trail["length"])
-//         });
-//         return temp
-//     }
-//     else return trails;
-// }
+function filterMin(trails, query) {
+    if (query["min"]) {
+        let temp = trails.filter(trail => {
+            return parseFloat(query["min"]) < parseFloat(trail["length"])
+        });
+        return temp
+    }
+    else return trails;
+}
 
-// function filterMax(trails, query) {
-//     if (query["max"]) {
-//         let temp = trails.filter(trail => {
-//             return parseFloat(query["max"]) > parseFloat(trail["length"])
-//         });
-//         return temp
-//     }
-//     else return trails;
-// }
+function filterMax(trails, query) {
+    if (query["max"]) {
+        let temp = trails.filter(trail => {
+            return parseFloat(query["max"]) > parseFloat(trail["length"])
+        });
+        return temp
+    }
+    else return trails;
+}
 
-// function filterDifficulty(trails, query) {
-//     // log(query)
-//     let temp = [];
-//     if (query["d"]) {
-//         if (typeof query["d"] === 'string' || query["d"] instanceof String)
-//             query["d"] = [query["d"]];
-//         for (let trail of trails) {
-//             for (let diff of query["d"]) {
-//                 if (trail["difficulty"].toLowerCase() == diff.toLowerCase()) {
-//                     temp.push(trail);
-//                     break;
-//                 }
-//             }
-//         }
-//         return temp;    
-//     }
-//     else return trails;
-// }
+function filterDifficulty(trails, query) {
+    // log(query)
+    let temp = [];
+    if (query["d"]) {
+        if (typeof query["d"] === 'string' || query["d"] instanceof String)
+            query["d"] = [query["d"]];
+        for (let trail of trails) {
+            for (let diff of query["d"]) {
+                if (trail["difficulty"].toLowerCase() == diff.toLowerCase()) {
+                    temp.push(trail);
+                    break;
+                }
+            }
+        }
+        return temp;    
+    }
+    else return trails;
+}
 
-// function filterRatings(trails, query) {
-//     let temp = [];
-//     if (query["r"]) {
-//         if (typeof query["r"] === 'string' || query["r"] instanceof String)
-//             query["r"] = [query["r"]];
-//         for (let trail of trails) {
-//             for (let rating of query["r"]) {
-//                 if (Math.floor(trail["rating"]) == rating) {
-//                     temp.push(trail);
-//                     break;
-//                 }
-//             }
-//         }
-//         return temp;
-//     }
-//     else return trails;
-// }
+function filterRatings(trails, query) {
+    let temp = [];
+    if (query["r"]) {
+        if (typeof query["r"] === 'string' || query["r"] instanceof String)
+            query["r"] = [query["r"]];
+        for (let trail of trails) {
+            for (let rating of query["r"]) {
+                if (Math.floor(trail["rating"]) == rating) {
+                    temp.push(trail);
+                    break;
+                }
+            }
+        }
+        return temp;
+    }
+    else return trails;
+}
 
-// function js2Xml(arr) {
-//     if (arr.length > 0) {
-//         let temp = `<trailmaps>\n`
-//         for (let elem of arr) {
-//             // log(elem)
-//             let model = new TrailModel(elem);
-//             temp += model.toString();
-//         }
-//         temp +=  `\n</trailmaps>`;
-//         return temp;
-//     }
-//     else return ``;
-// }
+function js2Xml(arr) {
+    if (arr.length > 0) {
+        let temp = `<trailmaps>\n`
+        for (let elem of arr) {
+            // log(elem)
+            let model = new TrailModel(elem);
+            temp += model.toString();
+        }
+        temp +=  `\n</trailmaps>`;
+        return temp;
+    }
+    else return ``;
+}
 
 class SearchController {
 
 
     constructor(query, res) {
+        this.query = query;
         this.trail_key_path = path.join(__dirname, "..", "api_keys", "trailkey.xml");
         this.options = {
             method: 'GET',
@@ -144,88 +145,6 @@ class SearchController {
         });
         
         req.end();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    filterMin(trails, query) {
-        if (query["min"]) {
-            let temp = trails.filter(trail => {
-                return parseFloat(query["min"]) < parseFloat(trail["length"])
-            });
-            return temp
-        }
-        else return trails;
-    }
-    
-    filterMax(trails, query) {
-        if (query["max"]) {
-            let temp = trails.filter(trail => {
-                return parseFloat(query["max"]) > parseFloat(trail["length"])
-            });
-            return temp
-        }
-        else return trails;
-    }
-    
-    filterDifficulty(trails, query) {
-        // log(query)
-        let temp = [];
-        if (query["d"]) {
-            if (typeof query["d"] === 'string' || query["d"] instanceof String)
-                query["d"] = [query["d"]];
-            for (let trail of trails) {
-                for (let diff of query["d"]) {
-                    if (trail["difficulty"].toLowerCase() == diff.toLowerCase()) {
-                        temp.push(trail);
-                        break;
-                    }
-                }
-            }
-            return temp;    
-        }
-        else return trails;
-    }
-    
-    filterRatings(trails, query) {
-        let temp = [];
-        if (query["r"]) {
-            if (typeof query["r"] === 'string' || query["r"] instanceof String)
-                query["r"] = [query["r"]];
-            for (let trail of trails) {
-                for (let rating of query["r"]) {
-                    if (Math.floor(trail["rating"]) == rating) {
-                        temp.push(trail);
-                        break;
-                    }
-                }
-            }
-            return temp;
-        }
-        else return trails;
-    }
-    
-    js2Xml(arr) {
-        if (arr.length > 0) {
-            let temp = `<trailmaps>\n`
-            for (let elem of arr) {
-                // log(elem)
-                let model = new TrailModel(elem);
-                temp += model.toString();
-            }
-            temp +=  `\n</trailmaps>`;
-            return temp;
-        }
-        else return ``;
     }
 
 
