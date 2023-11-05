@@ -42,7 +42,7 @@ class SearchController {
             });
         });
     }
-
+    
     
     request(callback) {
         const req = http.request(this.options, function (res) {
