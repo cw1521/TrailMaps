@@ -2,8 +2,8 @@
 class TrailModel {
     id = "id";
     name = "name";
-    latitude = "latitude";
-    longitude = "longitude";
+    latitude = "lat";
+    longitude = "lon";
     difficulty = "difficulty";
     url = "url";
     rating = "rating";
@@ -37,7 +37,7 @@ class TrailModel {
                 </location>
                 <difficulty>${this.difficulty}</difficulty>
                 <url>${this.url}</url>
-                <rating>${this.url}</rating>
+                <rating>${this.rating}</rating>
                 <description>${this.description}</description>
                 <directions>${this.directions}</directions>
                 <length>${this.length}</length>
@@ -46,3 +46,5 @@ class TrailModel {
         return temp;
     }
 }
+
+module.exports = TrailModel;

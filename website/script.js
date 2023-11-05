@@ -110,7 +110,7 @@ function getAddressQueryString() {
 function search() {
     // log(queryParams.getQueryString());
     fetchPage(`/trails${queryParams.getQueryString()}`, log)
-    // fetchPage(`/trails${queryParams.getQueryString()}`, parseTrailsXML);
+    fetchPage(`/trails${queryParams.getQueryString()}`, parseTrailsXML);
 }
 
 

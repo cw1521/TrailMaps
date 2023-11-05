@@ -2,7 +2,7 @@ const TrailController = require("../controllers/TrailController");
 const KeyController = require("../controllers/KeyController");
 const express = require("express");
 
-
+const trailController = new TrailController();
 
 function notSupportedHandler(req, res, next) {    
     res.status(403);
