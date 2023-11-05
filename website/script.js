@@ -1,8 +1,11 @@
 var map, infoBox;
 
+
+
 function log(text) {
     console.log(text);
 }
+
 
 
 function fetchPage(path, callback) {
@@ -25,28 +28,59 @@ function testTrails() {
 }
 
 
+
+
 function parseTrailsXML(xmlString) {
-    parser = new DOMParser();
+    let parser = new DOMParser();
     xmlDoc = parser.parseFromString(xmlString,"text/xml");
     xmlDoc = xmlDoc.getElementsByTagName("trail");
-    let models = [];
     for (let trailXML of xmlDoc) {
         let model = new TrailModel(trailXML);
         // log(model);
         createPushPin(model);
 
     }
-    
+}
+
+function pushElemIfChecked(elemId, oArr) {
+    let elem = document.getElementById(elemId);
+    if (elem.checked) oArr.push(elem.value);
+}
+
+function getDifficultiesParams() {
+    let difficulties = [];
+    pushElemIfChecked("begDiff", difficulties);
+    pushElemIfChecked("intDiff", difficulties);
+    pushElemIfChecked("hardDiff", difficulties);
+    return difficulties;
+}
+function getRatingsParams() {
+    let ratings = [];
+    pushElemIfChecked("rating1", ratings);
+    pushElemIfChecked("rating2", ratings);
+    pushElemIfChecked("rating3", ratings);
+    pushElemIfChecked("rating4", ratings);
+    pushElemIfChecked("rating5", ratings);
+    return ratings;
 }
 
 
 
+function getQueryParams() {
+    let diffParams = getDifficultiesParams();
+    let ratingParams = getRatingsParams();
+    let minLength = document.getElementById("minLength").value;
+    let maxLength = document.getElementById("maxLength").value;
+    let queryParams = new QueryParams(ratingParams, diffParams, minLength, maxLength);
+    return queryParams;
+}
 
 
 
-// function searchTrails() {
-
-// }
+function searchTrails() {
+    let searchParams = getQueryParams();
+    log(searchParams.getQueryString());
+}
 
 
 
@@ -61,6 +95,9 @@ function createPushPin(model) {
     map.entities.push(pin);
 }
 
+
+
+
 function pushpinClicked(e) {
     if (e.target.metadata) {
         infobox.setOptions({
@@ -71,6 +108,8 @@ function pushpinClicked(e) {
         });
     }
 }
+
+
 
 
 function setMap(latitude, longitude, callback=null) {
@@ -134,7 +173,6 @@ class TrailModel {
     length = "length";
     features = "features";
 
-
     constructor(trailXML) {
         this.xmlDoc = trailXML;
         this.id = this.getValue(this.id);
@@ -153,13 +191,10 @@ class TrailModel {
     getValue(tag) {
         let temp = this.xmlDoc.getElementsByTagName(tag)[0].childNodes[0];
         // log(temp);
-        if (temp) {
+        if (temp != null) {
             let value = temp.nodeValue;
             // log(value);
             return value;
-        }
-        else {
-            return null;
         }
     }
 
@@ -180,5 +215,77 @@ class KeyModel {
         this.id = id;
         this.name = name;
         this.key = key;
+    }
+}
+
+
+
+class QueryParams {
+    location = null;
+    ratings = null;
+    difficulties = null;
+    minLength = null;
+    maxLength = null;
+    constructor(
+        ratings,
+        difficulties,
+        minLength,
+        maxLength) {
+            this.location = [];
+            this.ratings = ratings;
+            this.difficulties = difficulties;
+            this.minLength = minLength;
+            this.maxLength = maxLength;
+    }
+
+    getLocationString() {
+        let temp = ``;
+        if (this.latitude) temp = this.getQuery(this.latitude, "lat", temp);
+        if (this.longitude) temp = this.getQuery(this.longitude, "long", temp);
+        return temp;
+    }
+
+    getRatingsString() {
+        let temp = ``;
+        for (let rating of this.ratings) {
+            temp = this.getQuery(rating, "r", temp);
+        }
+        return temp;
+    }
+
+    getDifficultiesString() {
+        let temp = ``;
+        for (let difficulty of this.difficulties) {
+            temp = this.getQuery(difficulty, "d", temp);
+        }
+        return temp
+    }
+
+    getQuery(elem, elemTag, oStr) {
+        if (oStr != "") oStr += `&${elemTag}=${elem}`;
+        else oStr += `${elemTag}=${elem}`;
+        return oStr;
+    }
+
+    getLengthString() {
+        let temp = ``;
+        if (this.minLength) temp = this.getQuery(this.minLength, "min", temp);
+        if (this.maxLength) temp = this.getQuery(this.maxLength, "max", temp);
+        return temp;
+    }
+
+    addAnd(qStr, oStr) {
+        if (oStr != ``) oStr += `&${qStr}`;
+        else oStr += qStr;
+        return oStr;
+    }
+
+    getQueryString() {
+        let temp = ``;
+        if (this.getLocationString()) temp = this.addAnd(this.getLocationString(), temp);
+        if (this.getRatingsString()) temp = this.addAnd(this.getRatingsString(), temp);
+        if (this.getDifficultiesString()) temp = this.addAnd(this.getDifficultiesString(), temp);
+        if (this.getLengthString()) temp = this.addAnd(this.getLengthString(), temp);
+        return temp;
     }
 }
