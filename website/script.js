@@ -107,7 +107,13 @@ function setMap(latitude, longitude, callback=null) {
 
   
 function loadMap() {
-    setMap(30.694551, -88.187773);
+    navigator.geolocation.getCurrentPosition(function (position) {
+        position
+        var loc = new Microsoft.Maps.Location(
+            position.coords.latitude,
+            position.coords.longitude);
+        setMap(loc.latitude, loc.longitude);
+    });
 }
 
 
