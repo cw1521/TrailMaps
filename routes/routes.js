@@ -30,7 +30,7 @@ router.route("")
 
 
 router.route("/trails")
-.get(TrailController.getAll)
+.get(TrailController.get)
 .post(notSupportedHandler)
 .put(notSupportedHandler)
 .delete(notSupportedHandler);
