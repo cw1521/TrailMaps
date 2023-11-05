@@ -7,7 +7,7 @@
 ## API Keys
 **API Keys are expected to be stored in api_keys folder in root TrailMaps directory.**<br><br>
 **Obtain Bing Maps api_key and store in TrailMaps/api_keys/mapkey.xml**<br>
-**Obtain TrailAPI key and and store in TrailMaps/api_keys/trailkey.xml**<br><br>
+**Obtain TrailAPI key from http://trailapi.com and and store in TrailMaps/api_keys/trailkey.xml**<br><br>
 Examples:<br>
 mapkey.xml
 ```
