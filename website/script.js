@@ -1,4 +1,4 @@
-var map, infoBox;
+var map, infoBox, key;
 
 
 
@@ -23,7 +23,7 @@ function fetchPage(path, callback) {
 
 
 function testTrails() {
-    setMap(30.694551, -88.187773);
+    setMap(33.753746, -84.386330);
     fetchPage("/trails", parseTrailsXML);
 }
 
@@ -109,10 +109,7 @@ function pushpinClicked(e) {
     }
 }
 
-
-
-
-function setMap(latitude, longitude, callback=null) {
+function setApiKey(callback=null) {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "/apikey/map");
     xhr.send();
@@ -121,31 +118,29 @@ function setMap(latitude, longitude, callback=null) {
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
         key = xmlDoc.getElementsByTagName("key")[0].childNodes[0].nodeValue;
-        map = new Microsoft.Maps.Map(document.getElementById("map"), {
-            credentials: key,
-            center: new Microsoft.Maps.Location(latitude, longitude),
-            mapTypeId: Microsoft.Maps.MapTypeId.road,
-            showLocateMeButton: false,
-            zoom: 8
-        });    
-        infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
-            visible: false
-        });
-
-        infobox.setMap(map);
+        if (callback) callback();
+    }
+}
 
 
-        if (callback !== null) callback(map);
-
-    };
+function setMap(latitude, longitude) {
+    map = new Microsoft.Maps.Map(document.getElementById("map"), {
+        credentials: key,
+        center: new Microsoft.Maps.Location(latitude, longitude),
+        mapTypeId: Microsoft.Maps.MapTypeId.road,
+        showLocateMeButton: false,
+        zoom: 8
+    });    
+    infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
+        visible: false
+    });
+    infobox.setMap(map);
 }
 
 
 
-
-
-  
-function loadMap() {
+function initMap() {
+    setMap(33.753746, -84.386330);
     navigator.geolocation.getCurrentPosition(function (position) {
         position
         var loc = new Microsoft.Maps.Location(
@@ -153,6 +148,13 @@ function loadMap() {
             position.coords.longitude);
         setMap(loc.latitude, loc.longitude);
     });
+}
+
+
+
+  
+function loadMap() {
+    setApiKey(initMap);
 }
 
 
@@ -286,6 +288,7 @@ class QueryParams {
         if (this.getRatingsString()) temp = this.addAnd(this.getRatingsString(), temp);
         if (this.getDifficultiesString()) temp = this.addAnd(this.getDifficultiesString(), temp);
         if (this.getLengthString()) temp = this.addAnd(this.getLengthString(), temp);
-        return `?${temp}`;
+        if (temp !== ``) return `?${temp}`;
+        else return temp;
     }
 }
